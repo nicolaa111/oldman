@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>For Lychee 💗</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #fceff9, #e0f7fa);
+    text-align: center;
+    overflow: hidden;
+}
+
+.box {
+    background: rgba(255,255,255,0.9);
+    padding: 30px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 80px;
+}
+
+button {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    margin: 8px;
+    cursor: pointer;
+    background: #a0e7e5;
+}
+
+.hidden { display: none; }
+
+.heart {
+    position: fixed;
+    bottom: -10px;
+    font-size: 20px;
+    animation: floatUp 4s linear;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-700px); opacity: 0; }
+}
+
+#yesBtn {
+    position: relative;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="box" id="login">
+    <h2>Enter Password 🌸</h2>
+    <input type="password" id="password">
+    <br>
+    <button onclick="checkPassword()">Enter</button>
+</div>
+
+<!-- MAIN MENU -->
+<div class="box hidden" id="menu">
+    <h2>hi lychee 😏</h2>
+    <button onclick="explore()">Explore</button>
+    <button onclick="tryExit()">Exit</button>
+</div>
+
+<!-- EXPLORE -->
+<div class="box hidden" id="explorePage">
+    <h2>🎧</h2>
+    <p id="exploreText"></p>
+
+    <iframe 
+    style="border-radius:12px" 
+    src="https://open.spotify.com/embed/playlist/7hZ9UBozuSzs2ffiPUEO4c"
+    width="100%" height="300"></iframe>
+
+    <button onclick="goBack()">Back</button>
+</div>
+
+<!-- EXIT SCENE -->
+<div class="box hidden" id="exitScene">
+    <p id="exitText"></p>
+
+    <div id="choiceBtns" class="hidden">
+        <button id="yesBtn" onmouseover="moveYes()">Yes</button>
+        <button onclick="noChoice()">Of course not</button>
+    </div>
+</div>
+
+<script>
+function checkPassword() {
+    if (document.getElementById("password").value === "oldman") {
+        login.classList.add("hidden");
+        menu.classList.remove("hidden");
+    } else {
+        alert("Wrong password 😠");
+    }
+}
+
+// EXPLORE
+function explore() {
+    menu.classList.add("hidden");
+    explorePage.classList.remove("hidden");
+
+    explodeHearts();
+
+    setTimeout(() => {
+        document.getElementById("exploreText").innerText =
+        "i didn’t expect it… but these songs started sounding like you 😌";
+    }, 1000);
+}
+
+// HEARTS
+function explodeHearts() {
+    for (let i = 0; i < 25; i++) {
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💗";
+        heart.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+    }
+}
+
+function goBack() {
+    explorePage.classList.add("hidden");
+    menu.classList.remove("hidden");
+}
+
+// EXIT BUTTON
+function tryExit() {
+    menu.classList.add("hidden");
+
+    document.body.style.background = "black";
+    document.body.style.color = "lime";
+
+    exitScene.classList.remove("hidden");
+    exitText.innerText = "ERROR_403... system breach...";
+
+    setTimeout(() => {
+        document.body.style.background = "";
+        document.body.style.color = "";
+
+        exitText.innerText = "oh? you’re leaving?";
+        
+        setTimeout(() => {
+            exitText.innerText = "so… you got another girl? 😐";
+            document.getElementById("choiceBtns").classList.remove("hidden");
+        }, 2000);
+
+    }, 2000);
+}
+
+// MOVING YES
+function moveYes() {
+    let btn = document.getElementById("yesBtn");
+    btn.style.position = "absolute";
+    btn.style.left = Math.random() * 80 + "vw";
+    btn.style.top = Math.random() * 80 + "vh";
+
+    exitText.innerText = "NAURRR 😭";
+}
+
+// NO BUTTON
+function noChoice() {
+    exitText.innerText = "as it should 😌";
+
+    setTimeout(() => {
+        speakLine();
+    }, 1500);
+}
+
+// VOICE LINE
+function speakLine() {
+    let msg = new SpeechSynthesisUtterance("I’m cute, you’re just aging. ha ha");
+    speechSynthesis.speak(msg);
+}
+</script>
+
+</body>
+</html>
